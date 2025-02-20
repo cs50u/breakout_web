@@ -32,12 +32,10 @@ const ball = {
 const bricks = [];
 function createBricks() {
   bricks.length = 0;
+  const brickAreaWidth = Math.floor(canvas.width - brickSpacing);
+  const brickColumns = Math.floor(brickAreaWidth / (brickWidth + brickSpacing));
   for (let row = 0; row < colors.length; row++) {
-    for (
-      let col = 0;
-      col < Math.floor(canvas.width / (brickWidth + brickSpacing));
-      col++
-    ) {
+    for (let col = 0; col < brickColumns; col++) {
       bricks.push({
         x: col * (brickWidth + brickSpacing) + brickSpacing,
         y: row * (brickHeight + brickSpacing) + 50,
@@ -81,7 +79,13 @@ function update() {
       ball.x += ball.dx;
       ball.y += ball.dy;
 
-      if (ball.x <= 0 || ball.x + ball.size >= canvas.width) ball.dx *= -1;
+      if (ball.x <= 0 || ball.x + ball.size >= canvas.width) {
+        ball.dx *= -1;
+        ball.x = Math.max(
+          ball.size / 2,
+          Math.min(ball.x, canvas.width - ball.size / 2)
+        );
+      }
       if (ball.y <= 0) ball.dy *= -1;
 
       if (
@@ -91,7 +95,7 @@ function update() {
       ) {
         ball.dy = -3; // Fixed speed
         const hitPos = (ball.x - paddle.x) / paddle.width;
-        ball.dx = 3 * (hitPos - 0.5); // Consistent horizontal speed
+        ball.dx = 3 * (hitPos - 0.5) || 1; // Prevent 0 horizontal speed
       }
 
       for (let i = 0; i < bricks.length; i++) {
@@ -152,9 +156,9 @@ function draw() {
   if (gameState === "paused")
     ctx.fillText("PAUSED", canvas.width / 2 - 70, canvas.height / 2);
   if (gameState === "game_over")
-    ctx.fillText("GAME OVER", canvas.width / 2 - 100, canvas.height / 2);
+    ctx.fillText("GAME OVER", canvas.width / 2 - 100, canvas.height / 2 + 40);
   if (gameState === "win")
-    ctx.fillText("YOU WIN!", canvas.width / 2 - 100, canvas.height / 2);
+    ctx.fillText("YOU WIN!", canvas.width / 2 - 100, canvas.height / 2 + 40);
 }
 
 function resetGame() {
