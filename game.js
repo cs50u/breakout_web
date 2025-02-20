@@ -7,8 +7,7 @@ const paddleWidth = 100,
   paddleSpeed = 6;
 const ballSize = 20,
   ballSpeed = 2.5;
-const brickWidth = 60,
-  brickHeight = 30,
+const brickHeight = 30,
   brickSpacing = 5;
 const colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
 
@@ -32,12 +31,12 @@ const ball = {
 const bricks = [];
 function createBricks() {
   bricks.length = 0;
-  const brickAreaWidth = Math.floor(canvas.width - brickSpacing);
-  const brickColumns = Math.floor(brickAreaWidth / (brickWidth + brickSpacing));
+  const maxColumns = Math.floor(canvas.width / (60 + brickSpacing));
+  const brickWidth = Math.floor(canvas.width / maxColumns) - brickSpacing;
   for (let row = 0; row < colors.length; row++) {
-    for (let col = 0; col < brickColumns; col++) {
+    for (let col = 0; col < maxColumns; col++) {
       bricks.push({
-        x: col * (brickWidth + brickSpacing) + brickSpacing,
+        x: col * (brickWidth + brickSpacing),
         y: row * (brickHeight + brickSpacing) + 50,
         width: brickWidth,
         height: brickHeight,
@@ -81,10 +80,6 @@ function update() {
 
       if (ball.x <= 0 || ball.x + ball.size >= canvas.width) {
         ball.dx *= -1;
-        ball.x = Math.max(
-          ball.size / 2,
-          Math.min(ball.x, canvas.width - ball.size / 2)
-        );
       }
       if (ball.y <= 0) ball.dy *= -1;
 
