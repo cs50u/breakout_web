@@ -6,7 +6,7 @@ const paddleWidth = 100,
   paddleHeight = 20,
   paddleSpeed = 6;
 const ballSize = 20,
-  ballSpeed = 3;
+  ballSpeed = 2.5;
 const brickWidth = 60,
   brickHeight = 30,
   brickSpacing = 5;
@@ -32,12 +32,12 @@ const ball = {
 const bricks = [];
 function createBricks() {
   bricks.length = 0;
-  const totalWidth = (brickWidth + brickSpacing) * 10 - brickSpacing;
-  const offsetX = Math.round((canvas.width - totalWidth) / 2);
+  const brickAreaWidth = Math.floor(canvas.width - brickSpacing);
+  const brickColumns = Math.floor(brickAreaWidth / (brickWidth + brickSpacing));
   for (let row = 0; row < colors.length; row++) {
-    for (let col = 0; col < 10; col++) {
+    for (let col = 0; col < brickColumns; col++) {
       bricks.push({
-        x: offsetX + col * (brickWidth + brickSpacing),
+        x: col * (brickWidth + brickSpacing) + brickSpacing,
         y: row * (brickHeight + brickSpacing) + 50,
         width: brickWidth,
         height: brickHeight,
