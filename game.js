@@ -6,7 +6,7 @@ const paddleWidth = 100,
   paddleHeight = 20,
   paddleSpeed = 6;
 const ballSize = 20,
-  ballSpeed = 3;
+  ballSpeed = 2.5;
 const brickWidth = 60,
   brickHeight = 30,
   brickSpacing = 5;
@@ -24,8 +24,8 @@ const ball = {
   y: canvas.height / 2 + 100,
   size: ballSize,
   speed: ballSpeed,
-  dx: 3,
-  dy: -3,
+  dx: 2.5,
+  dy: -2.5,
   moving: false,
 };
 
@@ -93,9 +93,9 @@ function update() {
         ball.x + ball.size > paddle.x &&
         ball.y + ball.size > paddle.y
       ) {
-        ball.dy = -3; // Fixed speed
+        ball.dy = -2.5;
         const hitPos = (ball.x - paddle.x) / paddle.width;
-        ball.dx = 3 * (hitPos - 0.5) || 1; // Prevent 0 horizontal speed
+        ball.dx = 2.5 * (hitPos - 0.5) || 1;
       }
 
       for (let i = 0; i < bricks.length; i++) {
@@ -164,8 +164,8 @@ function draw() {
 function resetGame() {
   ball.x = canvas.width / 2;
   ball.y = canvas.height / 2 + 100;
-  ball.dx = 3;
-  ball.dy = -3;
+  ball.dx = 2.5;
+  ball.dy = -2.5;
   ball.moving = false;
   paddle.x = canvas.width / 2 - paddle.width / 2;
   createBricks();
