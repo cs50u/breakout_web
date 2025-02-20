@@ -32,12 +32,12 @@ const ball = {
 const bricks = [];
 function createBricks() {
   bricks.length = 0;
-  const brickAreaWidth = Math.floor(canvas.width - brickSpacing);
-  const brickColumns = Math.floor(brickAreaWidth / (brickWidth + brickSpacing));
+  const totalWidth = (brickWidth + brickSpacing) * 10 - brickSpacing;
+  const offsetX = Math.round((canvas.width - totalWidth) / 2);
   for (let row = 0; row < colors.length; row++) {
-    for (let col = 0; col < brickColumns; col++) {
+    for (let col = 0; col < 10; col++) {
       bricks.push({
-        x: col * (brickWidth + brickSpacing) + brickSpacing,
+        x: offsetX + col * (brickWidth + brickSpacing),
         y: row * (brickHeight + brickSpacing) + 50,
         width: brickWidth,
         height: brickHeight,
