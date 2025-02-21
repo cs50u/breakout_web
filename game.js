@@ -31,12 +31,19 @@ const ball = {
 const bricks = [];
 function createBricks() {
   bricks.length = 0;
-  const maxColumns = Math.floor(canvas.width / (60 + brickSpacing));
-  const brickWidth = Math.floor(canvas.width / maxColumns) - brickSpacing;
+
+  const brickSpacing = 5;
+  const maxColumns = Math.floor(
+    (canvas.width + brickSpacing) / (60 + brickSpacing)
+  ); // Allow exact fit
+  const brickWidth = Math.floor(
+    (canvas.width - brickSpacing * (maxColumns - 1)) / maxColumns
+  );
+
   for (let row = 0; row < colors.length; row++) {
     for (let col = 0; col < maxColumns; col++) {
       bricks.push({
-        x: col * (brickWidth + brickSpacing),
+        x: col * (brickWidth + brickSpacing), // Start at 0, so no left gap
         y: row * (brickHeight + brickSpacing) + 50,
         width: brickWidth,
         height: brickHeight,
@@ -140,7 +147,7 @@ function draw() {
   });
 
   ctx.fillStyle = "white";
-  ctx.font = "32px Arial";
+  ctx.font = "36px Arial";
   if (gameState === "start")
     ctx.fillText(
       "Press SPACE to start",
