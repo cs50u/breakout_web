@@ -45,7 +45,6 @@ function createBricks() {
     }
   }
 }
-createBricks();
 
 let gameState = "start";
 document.addEventListener("keydown", keyDown);
@@ -159,12 +158,13 @@ function draw() {
 function resetGame() {
   ball.x = canvas.width / 2;
   ball.y = canvas.height / 2 + 100;
-  ball.dx = 2.5;
-  ball.dy = -2.5;
+  ball.dx = Math.random() * 3 - 1.5; // Random horizontal speed
+  ball.dy = 2.5; // Downward speed
   ball.moving = false;
   paddle.x = canvas.width / 2 - paddle.width / 2;
   createBricks();
   gameState = "start";
 }
 
-update();
+resetGame(); // Initialize the game
+update(); // Start the loop
