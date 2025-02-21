@@ -2,11 +2,11 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-const paddleWidth = 100,
+const paddleWidth = 150,
   paddleHeight = 20,
   paddleSpeed = 6;
 const ballSize = 20,
-  ballSpeed = 2.5;
+  ballSpeed = 2.0;
 const brickHeight = 30,
   brickSpacing = 5;
 const colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
